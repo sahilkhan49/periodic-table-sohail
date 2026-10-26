@@ -12,18 +12,19 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Setup Gradle
+      - name: Setup Gradle 8.5
         uses: gradle/actions/setup-gradle@v3
+        with:
+          gradle-version: 8.5
 
-      - name: Make gradlew executable
-        run: chmod +x ./gradlew || true
+      - name: Build Debug APK (No Wrapper Needed)
+        run: gradle assembleDebug --stacktrace
 
-      - name: Build Debug APK
-        run: ./gradlew assembleDebug --stacktrace --info
-        # If above fails, try with gradle command
       - name: Upload APK
-        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: periodic-table-apk
-          path: app/build/outputs/apk/debug/*.apk
+          path: |
+            app/build/outputs/apk/debug/*.apk
+            PeriodicTableAndroid/app/build/outputs/apk/debug/*.apk
+            **/build/outputs/apk/debug/*.apk
