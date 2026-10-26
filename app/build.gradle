@@ -1,0 +1,3 @@
+plugins { id 'com.android.application' }
+android { namespace 'com.sohailkhan.periodictable'; compileSdk 34; defaultConfig { applicationId "com.sohailkhan.periodictable"; minSdk 21; targetSdk 34; versionCode 1; versionName "1.0" }; buildTypes { release { minifyEnabled false } } }
+dependencies {}
