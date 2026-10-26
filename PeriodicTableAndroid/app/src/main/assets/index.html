@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#102449">
+<title>Periodic Table — Engnr Sohail Khan</title>
+<style>
+:root{--bg:#f3f6fb;--panel:#fff;--text:#17243c;--muted:#71809a;--line:#dce4ef;--navy:#102449;--blue:#2855a0}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);transition:.2s}
+body.dark{--bg:#0d1729;--panel:#17243a;--text:#e9eff9;--muted:#a3b1c7;--line:#30405a}
+header{background:var(--navy);color:white;padding:18px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:12px}.logo{height:44px;width:44px;border:1px solid #ffffff55;border-radius:12px;display:grid;place-items:center;font-size:25px;color:#d8e6ff}
+h1{font-size:clamp(17px,3vw,25px);margin:0;letter-spacing:.3px}.sub{font-size:10px;color:#adc3e6;letter-spacing:1.7px;margin-bottom:5px}
+button,input{font:inherit}button{cursor:pointer}.theme{background:#ffffff14;color:white;border:1px solid #ffffff40;border-radius:9px;padding:10px 12px}
+main{max-width:1600px;margin:auto;padding:18px 12px 10px}.intro{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-bottom:16px}.introText{flex:1;min-width:220px}.intro h2{margin:3px 0 7px;font-size:clamp(22px,4vw,32px)}.intro p{margin:0;color:var(--muted);font-size:13px;line-height:1.5}.stats{display:flex;gap:18px}.stats div{border-left:1px solid var(--line);padding-left:15px}.stats b{display:block;font-size:22px;color:#3564ad}.stats span{font-size:10px;color:var(--muted)}
+.feature{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;display:flex;align-items:center;gap:17px;margin-bottom:15px;box-shadow:0 6px 20px #18345b0b}.featureSymbol{width:94px;min-width:94px;height:105px;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;border:1px solid #d6dfeb}.featureSymbol small{position:absolute;top:7px;left:8px}.featureSymbol strong{font-size:37px}.featureSymbol span{font-size:12px;font-weight:bold}.featureSymbol em{font-size:11px;font-style:normal;margin-top:4px}.featureInfo h2{margin:5px 0;font-size:23px}.featureInfo p{margin:6px 0 10px;font-size:12px;color:var(--muted)}.tag{display:inline-block;background:#edf2fb;color:#4b5e7d;padding:6px 9px;border-radius:20px;font-size:10px;margin:2px}
+.tools{display:flex;gap:8px;margin-bottom:12px}.search{flex:1;min-width:0;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px;color:var(--text);outline:none}.reset{border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:10px;padding:0 13px}.filters{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}.filter{border:1px solid var(--line);background:var(--panel);color:var(--muted);border-radius:20px;padding:7px 10px;font-size:11px}.filter.active{background:#e8efff;border-color:#6e91d1;color:#234b91;font-weight:bold}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:14px 10px;overflow:hidden}.panelhead{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:0 3px 12px}.panelhead h3{margin:0;font-size:16px}.panelhead span{font-size:11px;color:var(--muted)}
+.tableScroll{overflow-x:auto;padding-bottom:9px}.periodic{display:grid;grid-template-columns:24px repeat(18,minmax(47px,1fr));grid-template-rows:20px repeat(7,73px);gap:3px;min-width:940px}.axis{font-size:11px;color:var(--muted);display:grid;place-items:center;font-weight:bold}
+.el{border:1px solid #d6dfeb;border-radius:5px;min-width:0;padding:12px 2px 4px;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#20304a;transition:transform .15s,box-shadow .15s;overflow:hidden}.el:hover{transform:translateY(-3px);box-shadow:0 5px 12px #10244930;z-index:2}.el.selected{outline:2px solid #2855a0;outline-offset:1px}.num{position:absolute;left:4px;top:3px;font-size:9px}.sym{font-size:18px;font-weight:800}.ename{font-size:8px;font-weight:bold;margin-top:3px;text-align:center}.mass{font-size:8px;margin-top:3px;opacity:.8}.faded{opacity:.18;filter:grayscale(.5)}
+.alkali{background:#f8dfe5}.alkaline{background:#f9e4d2}.transition{background:#dcecf8}.post{background:#f8f0c9}.metalloid{background:#dff1e5}.nonmetal{background:#e7f2df}.halogen{background:#f4e1ec}.noble{background:#f8dfc8}.lanthanide{background:#f8edbd}.actinide{background:#e8e5fa}
+.fblock{margin-top:12px;min-width:940px;display:flex;flex-direction:column;gap:6px}.frow{display:grid;grid-template-columns:100px repeat(15,minmax(47px,1fr));gap:3px}.flabel{font-size:10px;color:var(--muted);display:flex;align-items:center;justify-content:center;flex-direction:column}.frow .el{min-height:66px}
+.legend{display:flex;flex-wrap:wrap;gap:10px 14px;margin-top:17px;padding-top:14px;border-top:1px solid var(--line)}.legendTitle{width:100%;font-size:10px;font-weight:bold;letter-spacing:1px;color:var(--muted)}.legendItem{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--muted)}.dot{width:10px;height:10px;border-radius:3px}
+footer{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;padding:18px 3px;color:var(--muted);font-size:11px}.owner{font-weight:bold;color:#3765a9}
+.overlay{display:none;position:fixed;inset:0;background:#07142ec7;z-index:10;align-items:center;justify-content:center;padding:15px}.overlay.show{display:flex}.modal{background:var(--panel);color:var(--text);width:min(540px,100%);max-height:90vh;overflow:auto;border-radius:18px;padding:22px;position:relative;box-shadow:0 20px 60px #0005}.close{float:right;border:0;background:#eaf0f8;border-radius:8px;padding:8px;color:#334766}.modalhead{display:flex;align-items:center;gap:15px;padding:5px 0 17px;border-bottom:1px solid var(--line)}.modalsymbol{width:80px;height:90px;display:flex;flex-direction:column;justify-content:center;align-items:center;border-radius:12px;position:relative;color:#20304a}.modalsymbol small{position:absolute;top:7px;left:8px}.modalsymbol strong{font-size:33px}.modalhead h2{margin:0 0 6px}.modalhead p{color:var(--muted);font-size:12px;margin:0}.details{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:16px 0}.detail{padding:11px;border:1px solid var(--line);border-radius:9px;min-width:0}.detail span{display:block;font-size:10px;color:var(--muted);margin-bottom:5px}.detail b{font-size:12px;overflow-wrap:anywhere}.wide{grid-column:1/-1}.done{width:100%;padding:12px;border:0;border-radius:9px;background:#2855a0;color:white;font-weight:bold}
+@media(max-width:600px){header{padding:14px 12px}.logo{width:38px;height:38px}.theme{font-size:11px;padding:9px}.stats{width:100%;justify-content:flex-start}.feature{padding:12px;gap:12px}.featureSymbol{width:78px;min-width:78px;height:94px}.featureSymbol strong{font-size:31px}.featureInfo h2{font-size:19px}.featureInfo p{line-height:1.5}.panel{padding:12px 8px}.periodic{grid-template-columns:22px repeat(18,minmax(43px,1fr));min-width:830px;grid-template-rows:18px repeat(7,68px)}.fblock,.tableScroll{max-width:100%}.frow{grid-template-columns:80px repeat(15,minmax(43px,1fr))}.fblock{min-width:830px}.el{min-height:68px}.sym{font-size:16px}.ename,.mass{font-size:7px}.details{gap:6px}.detail{padding:9px}}
+</style>
+</head>
+<body>
+<header><div class="brand"><div class="logo">⚛</div><div><div class="sub">CHEMISTRY • LEARNING LAB</div><h1>PERIODIC TABLE OF THE ELEMENTS</h1></div></div><button class="theme" id="themeBtn">☾ Dark mode</button></header>
+<main>
+<section class="intro"><div class="introText"><div class="sub" style="color:#3564ad">EXPLORE THE BUILDING BLOCKS OF MATTER</div><h2>Every element has a story.</h2><p>Tap any element to explore its properties, structure, and place in the universe.</p></div><div class="stats"><div><b>118</b><span>known elements</span></div><div><b>18</b><span>groups</span></div><div><b>7</b><span>periods</span></div></div></section>
+<section class="feature"><div class="featureSymbol transition" id="featureSymbol"><small id="featNum">11</small><strong id="featSym">Na</strong><span id="featName">Sodium</span><em id="featMass">22.990 u</em></div><div class="featureInfo"><div class="sub" style="color:#8391a8">SELECTED ELEMENT</div><h2 id="featTitle">Sodium (Na)</h2><p id="featDescription">Atomic number 11 · Atomic mass 22.990 u</p><div id="featTags"><span class="tag">Alkali metal</span><span class="tag">Group 1</span><span class="tag">Period 3</span></div></div></section>
+<div class="tools"><input class="search" id="search" placeholder="Search element, symbol, or atomic number…"><button class="reset" id="reset">Reset</button></div>
+<div class="filters" id="filters"></div>
+<section class="panel"><div class="panelhead"><h3>Periodic table</h3><span id="count">118 / 118 elements</span></div><div class="tableScroll"><div class="periodic" id="periodic"></div><div class="fblock" id="fblock"></div></div><div class="legend"><div class="legendTitle">ELEMENT CATEGORIES</div><div id="legendItems" style="display:contents"></div></div></section>
+<footer><span>⚛ Element Atlas</span><span>Educational reference · Atomic masses in u</span><span class="owner">Owner: Engnr Sohail Khan · Built by Sohail Khan</span></footer>
+</main>
+<div class="overlay" id="overlay"><section class="modal"><button class="close" id="close">✕</button><div class="modalhead"><div class="modalsymbol transition" id="mSymbol"><small id="mNum">56</small><strong id="mSym">Ba</strong></div><div><h2 id="mName">Barium</h2><p id="mCat">Alkaline earth metal</p><p style="margin-top:8px">Atomic mass: <b id="mMass">137.33 u</b></p></div></div><div class="details" id="details"></div><button class="done" id="done">Back to periodic table</button></section></div>
+<script>
+const raw=`H|Hydrogen|1.008|nonmetal
+He|Helium|4.0026|noble
+Li|Lithium|6.94|alkali
+Be|Beryllium|9.0122|alkaline
+B|Boron|10.81|metalloid
+C|Carbon|12.011|nonmetal
+N|Nitrogen|14.007|nonmetal
+O|Oxygen|15.999|nonmetal
+F|Fluorine|18.998|halogen
+Ne|Neon|20.180|noble
+Na|Sodium|22.990|alkali
+Mg|Magnesium|24.305|alkaline
+Al|Aluminium|26.982|post
+Si|Silicon|28.085|metalloid
+P|Phosphorus|30.974|nonmetal
+S|Sulfur|32.06|nonmetal
+Cl|Chlorine|35.45|halogen
+Ar|Argon|39.948|noble
+K|Potassium|39.098|alkali
+Ca|Calcium|40.078|alkaline
+Sc|Scandium|44.956|transition
+Ti|Titanium|47.867|transition
+V|Vanadium|50.942|transition
+Cr|Chromium|51.996|transition
+Mn|Manganese|54.938|transition
+Fe|Iron|55.845|transition
+Co|Cobalt|58.933|transition
+Ni|Nickel|58.693|transition
+Cu|Copper|63.546|transition
+Zn|Zinc|65.38|transition
+Ga|Gallium|69.723|post
+Ge|Germanium|72.630|metalloid
+As|Arsenic|74.922|metalloid
+Se|Selenium|78.971|nonmetal
+Br|Bromine|79.904|halogen
+Kr|Krypton|83.798|noble
+Rb|Rubidium|85.468|alkali
+Sr|Strontium|87.62|alkaline
+Y|Yttrium|88.906|transition
+Zr|Zirconium|91.224|transition
+Nb|Niobium|92.906|transition
+Mo|Molybdenum|95.95|transition
+Tc|Technetium|[98]|transition
+Ru|Ruthenium|101.07|transition
+Rh|Rhodium|102.91|transition
+Pd|Palladium|106.42|transition
+Ag|Silver|107.87|transition
+Cd|Cadmium|112.41|transition
+In|Indium|114.82|post
+Sn|Tin|118.71|post
+Sb|Antimony|121.76|metalloid
+Te|Tellurium|127.60|metalloid
+I|Iodine|126.90|halogen
+Xe|Xenon|131.29|noble
+Cs|Caesium|132.91|alkali
+Ba|Barium|137.33|alkaline
+La|Lanthanum|138.91|lanthanide
+Ce|Cerium|140.12|lanthanide
+Pr|Praseodymium|140.91|lanthanide
+Nd|Neodymium|144.24|lanthanide
+Pm|Promethium|[145]|lanthanide
+Sm|Samarium|150.36|lanthanide
+Eu|Europium|151.96|lanthanide
+Gd|Gadolinium|157.25|lanthanide
+Tb|Terbium|158.93|lanthanide
+Dy|Dysprosium|162.50|lanthanide
+Ho|Holmium|164.93|lanthanide
+Er|Erbium|167.26|lanthanide
+Tm|Thulium|168.93|lanthanide
+Yb|Ytterbium|173.05|lanthanide
+Lu|Lutetium|174.97|lanthanide
+Hf|Hafnium|178.49|transition
+Ta|Tantalum|180.95|transition
+W|Tungsten|183.84|transition
+Re|Rhenium|186.21|transition
+Os|Osmium|190.23|transition
+Ir|Iridium|192.22|transition
+Pt|Platinum|195.08|transition
+Au|Gold|196.97|transition
+Hg|Mercury|200.59|transition
+Tl|Thallium|204.38|post
+Pb|Lead|207.2|post
+Bi|Bismuth|208.98|post
+Po|Polonium|[209]|post
+At|Astatine|[210]|halogen
+Rn|Radon|[222]|noble
+Fr|Francium|[223]|alkali
+Ra|Radium|[226]|alkaline
+Ac|Actinium|[227]|actinide
+Th|Thorium|232.04|actinide
+Pa|Protactinium|231.04|actinide
+U|Uranium|238.03|actinide
+Np|Neptunium|[237]|actinide
+Pu|Plutonium|[244]|actinide
+Am|Americium|[243]|actinide
+Cm|Curium|[247]|actinide
+Bk|Berkelium|[247]|actinide
+Cf|Californium|[251]|actinide
+Es|Einsteinium|[252]|actinide
+Fm|Fermium|[257]|actinide
+Md|Mendelevium|[258]|actinide
+No|Nobelium|[259]|actinide
+Lr|Lawrencium|[266]|actinide
+Rf|Rutherfordium|[267]|transition
+Db|Dubnium|[268]|transition
+Sg|Seaborgium|[269]|transition
+Bh|Bohrium|[270]|transition
+Hs|Hassium|[277]|transition
+Mt|Meitnerium|[278]|transition
+Ds|Darmstadtium|[281]|transition
+Rg|Roentgenium|[282]|transition
+Cn|Copernicium|[285]|transition
+Nh|Nihonium|[286]|post
+Fl|Flerovium|[289]|post
+Mc|Moscovium|[290]|post
+Lv|Livermorium|[293]|post
+Ts|Tennessine|[294]|halogen
+Og|Oganesson|[294]|noble`;
+const names={alkali:'Alkali metal',alkaline:'Alkaline earth metal',transition:'Transition metal',post:'Post-transition metal',metalloid:'Metalloid',nonmetal:'Nonmetal',halogen:'Halogen',noble:'Noble gas',lanthanide:'Lanthanide',actinide:'Actinide'};
+const els=raw.split('\n').map((line,i)=>{let [s,name,mass,cat]=line.split('|');return {n:i+1,s,name,mass,cat,g:0,p:0,config:'Electron configuration reference varies by element.',discoverer:i<10?'Known since antiquity or identified by early chemists':'Discovery credited to historical researchers and laboratories',state:['Hydrogen','Helium','Nitrogen','Oxygen','Fluorine','Neon','Chlorine','Argon','Krypton','Xenon','Radon'].includes(name)?'Gas':['Bromine','Mercury'].includes(name)?'Liquid':'Solid'}});
+const pos={};
+function set(n,g,p){pos[n]=[g,p];let e=els[n-1];e.g=g;e.p=p}
+[[1,1,1],[2,18,1],[3,1,2],[4,2,2],[5,13,2],[6,14,2],[7,15,2],[8,16,2],[9,17,2],[10,18,2]].forEach(a=>set(...a));
+const periods=[[11,12,13,14,15,16,17,18],[19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36],[37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54],[55,56,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86],[87,88,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118]];
+periods.forEach((arr,ri)=>arr.forEach((n,i)=>set(n,((ri>=2 && i>=2)?i+2:i+1),ri+3)));
+for(let n=57;n<=71;n++)set(n,3,6);for(let n=89;n<=103;n++)set(n,3,7);
+// Correct period/group mapping for standard table positions
+const fixed={11:[1,3],12:[2,3],13:[13,3],14:[14,3],15:[15,3],16:[16,3],17:[17,3],18:[18,3]};
+Object.entries(fixed).forEach(([n,a])=>set(+n,a[0],a[1]));
+function categoryClass(e){return e.cat}
+let selected=els[10],filter='all',query='';
+const periodic=document.getElementById('periodic'),fblock=document.getElementById('fblock');
+const filters=[['All','all'],['Alkali','alkali'],['Alkaline earth','alkaline'],['Transition','transition'],['Post-transition','post'],['Metalloids','metalloid'],['Nonmetals','nonmetal'],['Halogens','halogen'],['Noble gases','noble'],['Lanthanides','lanthanide'],['Actinides','actinide']];
+const filterBox=document.getElementById('filters');
+filters.forEach(([label,key])=>{let b=document.createElement('button');b.className='filter'+(key==='all'?' active':'');b.textContent=label;b.onclick=()=>{filter=key;document.querySelectorAll('.filter').forEach(x=>x.classList.remove('active'));b.classList.add('active');render()};filterBox.appendChild(b)});
+const legend=document.getElementById('legendItems');filters.slice(1).forEach(([label,key])=>{let d=document.createElement('div');d.className='legendItem';d.innerHTML='<i class="dot '+key+'"></i>'+label;legend.appendChild(d)});
+function matches(e){return (!query||e.name.toLowerCase().includes(query.toLowerCase())||e.s.toLowerCase().includes(query.toLowerCase())||String(e.n)===query.trim())&&(filter==='all'||e.cat===filter)}
+function cell(e,g,p,extra=''){let b=document.createElement('button');b.className='el '+e.cat+(selected.n===e.n?' selected':'')+(!matches(e)?' faded':'')+(extra?' '+extra:'');if(g){b.style.gridColumn=g;b.style.gridRow=p}b.innerHTML='<span class="num">'+e.n+'</span><strong class="sym">'+e.s+'</strong><span class="ename">'+e.name+'</span><span class="mass">'+e.mass+'</span>';b.title=e.name;b.onclick=()=>choose(e,true);return b}
+function render(){periodic.innerHTML='';for(let g=1;g<=18;g++){let a=document.createElement('span');a.className='axis';a.style.gridColumn=g+1;a.style.gridRow=1;a.textContent=g;periodic.appendChild(a)}for(let p=1;p<=7;p++){let a=document.createElement('span');a.className='axis';a.style.gridColumn=1;a.style.gridRow=p+1;a.textContent=p;periodic.appendChild(a)}
+els.filter(e=>!['lanthanide','actinide'].includes(e.cat)).forEach(e=>{let q=pos[e.n];if(q)periodic.appendChild(cell(e,q[0]+1,q[1]+1))});
+fblock.innerHTML='';[['Lanthanides',57,71,'lanthanide'],['Actinides',89,103,'actinide']].forEach(([label,start,end,cat])=>{let row=document.createElement('div');row.className='frow';let title=document.createElement('div');title.className='flabel';title.innerHTML='<b>'+label+'</b><span>'+start+'–'+end+'</span>';row.appendChild(title);for(let n=+start;n<=+end;n++)row.appendChild(cell(els[n-1],null,null));fblock.appendChild(row)});
+document.getElementById('count').textContent=els.filter(matches).length+' / 118 elements';}
+function choose(e,open){selected=e;document.getElementById('featNum').textContent=e.n;document.getElementById('featSym').textContent=e.s;document.getElementById('featName').textContent=e.name;document.getElementById('featMass').textContent=e.mass+' u';document.getElementById('featTitle').textContent=e.name+' ('+e.s+')';document.getElementById('featDescription').textContent='Atomic number '+e.n+' · Atomic mass '+e.mass+' u';document.getElementById('featTags').innerHTML='<span class="tag">'+names[e.cat]+'</span><span class="tag">Group '+(e.g||'f-block')+'</span><span class="tag">Period '+e.p+'</span>';document.getElementById('featureSymbol').className='featureSymbol '+e.cat;render();if(open)showModal(e)}
+function showModal(e){document.getElementById('mNum').textContent=e.n;document.getElementById('mSym').textContent=e.s;document.getElementById('mName').textContent=e.name;document.getElementById('mCat').textContent=names[e.cat];document.getElementById('mMass').textContent=e.mass+' u';document.getElementById('mSymbol').className='modalsymbol '+e.cat;const items=[['Atomic number',e.n],['Symbol',e.s],['Group',e.g||'f-block'],['Period',e.p],['Category',names[e.cat]],['State at room temperature',e.state],['Electron configuration',e.config],['Discovered by',e.discoverer]];document.getElementById('details').innerHTML=items.map((x,i)=>'<div class="detail '+(i>5?'wide':'')+'"><span>'+x[0]+'</span><b>'+x[1]+'</b></div>').join('');document.getElementById('overlay').classList.add('show')}
+document.getElementById('search').addEventListener('input',e=>{query=e.target.value;render()});document.getElementById('reset').onclick=()=>{query='';filter='all';document.getElementById('search').value='';document.querySelectorAll('.filter').forEach(x=>x.classList.toggle('active',x.textContent==='All'));render()};document.getElementById('themeBtn').onclick=()=>{document.body.classList.toggle('dark');document.getElementById('themeBtn').textContent=document.body.classList.contains('dark')?'☀ Light mode':'☾ Dark mode'};function closeModal(){document.getElementById('overlay').classList.remove('show')}document.getElementById('close').onclick=closeModal;document.getElementById('done').onclick=closeModal;document.getElementById('overlay').onclick=e=>{if(e.target.id==='overlay')closeModal()};document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+render();choose(els[10],false);
+</script>
+</body></html>
